@@ -1,0 +1,126 @@
+// ================== BIẾN MÀU SẮC ==================
+// Màu cho các nút bấm
+$success-color: #28a745; // Màu xanh lá (nút Thêm)
+$success-hover: #218838;
+
+$edit-color: #ffc107; // Màu vàng (nút Sửa)
+$edit-hover: #e0a800;
+
+$danger-color: #dc3545; // Màu đỏ (nút Xóa)
+$danger-hover: #c82333;
+
+// Màu nền
+$bg-light: #f8f9fa; // Màu nền sáng cho form
+$bg-white: #ffffff; // Màu nền trắng cho danh sách
+
+// Hiệu ứng giao diện
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); // Đổ bóng nhẹ
+$border-radius: 8px; // Độ bo góc
+
+// ================== BỐ CỤC TỔNG ==================
+.container {
+  display: flex; // Sử dụng flexbox để sắp xếp 2 khối form & danh sách
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px; // Khoảng cách giữa 2 khối
+  padding: 20px;
+
+  // Khối bên trái (Form nhập liệu)
+  .form-container {
+    flex: 1;
+    padding: 20px;
+    background-color: $bg-light;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+  }
+
+  // Khối bên phải (Danh sách người dùng)
+  .list-container {
+    flex: 2;
+    padding: 20px;
+    background-color: $bg-white;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+  }
+}
+
+// ================== CĂN CHỈNH INPUT ==================
+input {
+  display: block;
+  width: 100%; // Input full chiều ngang
+  padding: 10px;
+  margin-bottom: 10px; // Tạo khoảng cách với phần dưới
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+// ================== CĂN CHỈNH NÚT BẤM ==================
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.2s ease-in-out;
+
+  // Nút "Thêm"
+  &.add-btn {
+    background-color: $success-color;
+
+    &:hover {
+      background-color: $success-hover;
+    }
+  }
+
+  // Nút "Sửa"
+  &.edit-btn {
+    background-color: $edit-color;
+    color: black; // Chữ màu đen để dễ đọc trên nền vàng
+
+    &:hover {
+      background-color: $edit-hover;
+    }
+  }
+
+  // Nút "Xóa"
+  &.delete-btn {
+    background-color: $danger-color;
+
+    &:hover {
+      background-color: $danger-hover;
+    }
+  }
+}
+
+// ================== CĂN CHỈNH BẢNG DANH SÁCH NGƯỜI DÙNG ==================
+table {
+  width: 100%;
+  border-collapse: collapse; // Gộp viền giữa các ô
+
+  th, td {
+    border: 1px solid #ddd; // Viền mỏng giữa các cột
+    padding: 10px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2; // Màu nền cho tiêu đề cột
+  }
+
+  td {
+    white-space: nowrap; // Ngăn chữ xuống dòng trong ô
+  }
+
+  // Cột chứa các nút "Sửa" và "Xóa"
+  .actions {
+    text-align: center;
+    width: 160px; // Cố định chiều rộng để tránh nút bị lệch
+    display: flex;
+    justify-content: center;
+    gap: 10px; // Khoảng cách giữa các nút
+
+    button {
+      padding: 8px 12px;
+    }
+  }
+}

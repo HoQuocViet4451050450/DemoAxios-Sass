@@ -1,0 +1,41 @@
+<div class="container">
+  <!-- Form thêm người dùng -->
+  <div class="form-container">
+    <h2>Thêm người dùng</h2>
+    <input [(ngModel)]="newUser.name" placeholder="Tên">
+    <input [(ngModel)]="newUser.email" placeholder="Email">
+    <button class="add-btn" (click)="addUser()">Thêm</button>
+  </div>
+
+  <!-- Danh sách người dùng -->
+  <div class="list-container">
+    <h2>Danh sách người dùng</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tên</th>
+          <th>Email</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td class="actions">
+            <button class="edit-btn" (click)="selectUserToEdit(user)">Sửa</button>
+            <button class="delete-btn" (click)="deleteUser(user.id)">Xóa</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Form chỉnh sửa -->
+<div class="edit-container" *ngIf="editUser.id">
+  <h2>Chỉnh sửa người dùng</h2>
+  <input [(ngModel)]="editUser.name" placeholder="Tên">
+  <input [(ngModel)]="editUser.email" placeholder="Email">
+  <button class="add-btn" (click)="updateUser()">Cập nhật</button>
+</div>
