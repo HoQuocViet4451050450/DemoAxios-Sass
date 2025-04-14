@@ -1,0 +1,99 @@
+<app-menu></app-menu>
+<app-sidemenu></app-sidemenu>
+
+<div class="menu-container" @slideInFromLeft>
+  <h1 class="menu-title">Quản lý nhân viên</h1>
+
+  <div class="menu-content">
+    <!-- Form cập nhật người dùng -->
+    <div class="menu-form">
+      <div class="form-card">
+        <h4 class="form-title">{{ isEditing ? 'Cập nhật Người dùng' : 'Thêm Người dùng' }}</h4>
+        <form #nguoidungForm="ngForm" (ngSubmit)="onSubmit(nguoidungForm.value)">
+          <input type="hidden" name="id" [(ngModel)]="selectedNguoidung.id" />
+
+          <div class="form-group">
+            <label>Họ và Tên</label>
+            <input type="text" name="hoten" [(ngModel)]="selectedNguoidung.hoten" required />
+          </div>
+
+          <div class="form-group">
+            <label>Phòng ban</label>
+            <select name="phongban_id" [(ngModel)]="selectedNguoidung.phongban_id" required>
+              <option value="" disabled selected>Chọn phòng ban</option>
+              <option *ngFor="let phongban of phongbans$ | async" [value]="phongban.id">{{ phongban.tenphong }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Tuổi</label>
+            <input type="number" name="tuoi" [(ngModel)]="selectedNguoidung.tuoi" required />
+          </div>
+
+          <div class="form-group">
+            <label>Giới tính</label>
+            <select name="gioitinh" [(ngModel)]="selectedNguoidung.gioitinh" required>
+              <option value="" disabled selected>Chọn giới tính</option>
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+              <option value="Khác">Khác</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Địa chỉ</label>
+            <input type="text" name="diachi" [(ngModel)]="selectedNguoidung.diachi" required />
+          </div>
+
+          <div class="form-group">
+            <label>Số CCCD</label>
+            <input type="text" name="socccd" [(ngModel)]="selectedNguoidung.socccd" required />
+          </div>
+
+          <button type="submit" class="btn-submit">
+            {{ isEditing ? 'Cập nhật' : 'Thêm mới' }}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Danh sách người dùng -->
+    <div class="menu-list">
+      <div class="list-card">
+        <div class="list-header">
+          <h4>Danh sách Người dùng</h4>
+          <button class="btn-reload" (click)="loadNguoiDungList()">Tải lại</button>
+        </div>
+
+        <div class="search-bar">
+          <input 
+            type="text"
+            [(ngModel)]="searchKeyword"
+            placeholder="Nhập từ khóa..."
+          />
+          <button class="btn-search" (click)="searchNguoidung()">Tìm kiếm</button>
+        </div>
+
+        <div *ngIf="error$ | async as error" class="error-alert">
+          <strong>Lỗi:</strong> {{ error }}
+        </div>
+
+        <ul class="nguoidung-list">
+          <li *ngFor="let nguoidung of nguoidungs$ | async" class="nguoidung-item">
+            <span>
+              <strong>{{ nguoidung.hoten }}</strong> - {{ nguoidung.tuoi }} tuổi - {{ nguoidung.gioitinh }} - {{ nguoidung.diachi }} - {{ nguoidung.socccd }} - {{ nguoidung.phongban_id }}
+            </span>
+            <div class="item-actions">
+              <button class="btn-edit" (click)="editNguoidung(nguoidung)">Sửa</button>
+              <button class="btn-delete" (click)="deleteNguoidung(nguoidung.id)">Xóa</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="submittedDataMessage" class="info-alert">
+    {{ submittedDataMessage }}
+  </div>
+</div>

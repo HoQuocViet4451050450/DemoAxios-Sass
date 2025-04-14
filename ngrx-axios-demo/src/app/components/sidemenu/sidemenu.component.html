@@ -1,0 +1,15 @@
+<div class="fixed-menu" [class.collapsed]="isCollapsed">
+    <div *ngIf="!isCollapsed" class="menu-content" @slideInFromBottom>
+      <ul>
+        <li class="menu-header">
+          <span>Danh mục</span>
+          <button class="close-btn" (click)="toggleMenu()">×</button>
+        </li>
+        <li><a href="#" (click)="scrollToTop($event)">Quay lại đầu trang</a></li>
+        <li><a href="#" (click)="scrollToBottom($event)">Đến cuối trang</a></li>
+      </ul>
+    </div>
+  
+    <button *ngIf="isCollapsed" class="hamburger" (click)="toggleMenu()">☰</button>
+  </div>
+  

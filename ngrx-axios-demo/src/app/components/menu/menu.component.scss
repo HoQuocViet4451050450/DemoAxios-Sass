@@ -1,0 +1,40 @@
+$navbar-bg: #343a40;
+$navbar-text-color: #f8f9fa;
+$navbar-hover-color: #ddd;
+
+.navbar {
+  background-color: $navbar-bg;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  .navbar-brand {
+    font-weight: bold;
+    color: $navbar-text-color;
+    
+    &:hover {
+      color: $navbar-hover-color;
+    }
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-left: auto;
+
+    .nav-item {
+      .nav-link {
+        color: $navbar-text-color;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          color: $navbar-hover-color;
+        }
+
+        i {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}

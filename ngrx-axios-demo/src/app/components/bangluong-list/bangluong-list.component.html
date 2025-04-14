@@ -1,0 +1,169 @@
+<app-menu></app-menu>
+<app-sidemenu></app-sidemenu>
+<div class="salary-container" @slideInFromLeft>
+  <h1>Quản lý bảng lương</h1>
+
+  <div class="salary-content">
+    <!-- Form cập nhật lương -->
+    <div class="salary-form">
+      <div class="card-form">
+        <h4 class="form-title">{{ isEditing ? 'Cập nhật Lương' : 'Thêm Lương' }}</h4>
+        <form #bangluongForm="ngForm" (ngSubmit)="onSubmit(bangluongForm.value)">
+          <input type="hidden" name="id" [(ngModel)]="selectedBangluong.id" />
+
+          <div class="form-group">
+            <label>Mã nhân viên</label>
+            <select name="user_id" [(ngModel)]="selectedBangluong.user_id" required>
+              <option value="" disabled selected>Chọn mã nhân viên</option>
+              <option *ngFor="let nguoidung of nguoidungs$ | async" [value]="nguoidung.id">
+                {{ nguoidung.id }} - {{ nguoidung.hoten }}
+              </option>
+            </select>
+          </div>   
+
+          <div class="form-group">
+            <label>Lương theo giờ</label>
+            <input type="number" name="luongtheogio" [(ngModel)]="selectedBangluong.luongtheogio" required />
+          </div>
+
+          <div class="form-group">
+            <label>Tổng số giờ làm</label>
+            <input type="number" name="tonggiolam" [(ngModel)]="selectedBangluong.tonggiolam" required />
+          </div>
+
+          <div class="form-group">
+            <label>Tiền thưởng</label>
+            <input type="number" name="tienthuong" [(ngModel)]="selectedBangluong.tienthuong" />
+          </div>
+
+          <div class="form-group">
+            <label>Tiền phạt</label>
+            <input type="number" name="tienphat" [(ngModel)]="selectedBangluong.tienphat" />
+          </div>
+
+          <div class="form-group">
+            <label>Tháng</label>
+            <select name="thang" [(ngModel)]="selectedBangluong.thang" required>
+              <option value="" disabled selected>Chọn tháng</option>
+              <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Năm</label>
+            <select name="nam" [(ngModel)]="selectedBangluong.nam" required>
+              <option value="" disabled selected>Chọn năm</option>
+              <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Trạng thái</label>
+            <select name="trangthai" [(ngModel)]="selectedBangluong.trangthai" required>
+              <option value="" disabled selected>Chọn trạng thái</option>
+              <option value="Chưa thanh toán">Chưa thanh toán</option>
+              <option value="Đã thanh toán">Đã thanh toán</option>
+            </select>
+          </div>
+
+          <div class="form-group" *ngIf="selectedBangluong.trangthai === 'Đã thanh toán'">
+            <label>Ngày thanh toán</label>
+            <input type="date" name="ngaythanhtoan" [(ngModel)]="selectedBangluong.ngaythanhtoan" />
+          </div>
+
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-save"></i> {{ isEditing ? 'Cập nhật' : 'Thêm mới' }}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Danh sách lương -->
+    <div class="salary-table">
+      <div class="table-header">
+        <h4>Danh sách Lương</h4>
+        <button class="btn-refresh" (click)="loadBangluongList()">
+          <i class="fas fa-sync"></i> Tải lại
+        </button>
+      </div>
+
+      <div class="search-bar">
+        <input type="text" [(ngModel)]="hoten" placeholder="Nhập từ khóa..." />
+        <button class="btn-search" (click)="onSearch()">
+          <i class="fas fa-search"></i> Tìm kiếm
+        </button>
+      </div>
+
+      <div *ngIf="error$ | async as error" class="alert-error">
+        <strong>Lỗi:</strong> {{ error }}
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Mã nhân viên</th>
+              <th>Họ tên</th>
+              <th>Lương theo giờ</th>
+              <th>Tổng giờ làm</th>
+              <th>Tiền thưởng</th>
+              <th>Tiền phạt</th>
+              <th>Tổng lương</th>
+              <th>Tháng</th>
+              <th>Năm</th>
+              <th>Trạng thái</th>
+              <th>Ngày thanh toán</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bangluong of bangluongs$ | async">
+              <td>{{ bangluong.user_id }}</td>
+              <td>{{ bangluong.hoten }}</td>
+              <td>{{ bangluong.luongtheogio }}</td>
+              <td>{{ bangluong.tonggiolam }}</td>
+              <td>{{ bangluong.tienthuong }}</td>
+              <td>{{ bangluong.tienphat }}</td>
+              <td>{{ bangluong.tongluong }}</td>
+              <td>{{ bangluong.thang }}</td>
+              <td>{{ bangluong.nam }}</td>
+              <td [ngClass]="{
+                'trangthai-chuathanhtoan': bangluong.trangthai === 'Chưa thanh toán',
+                'trangthai-dathanhtoan': bangluong.trangthai === 'Đã thanh toán'
+              }">
+                {{ bangluong.trangthai }}
+              </td>
+              <td>{{ bangluong.ngaythanhtoan | date: 'dd/MM/yyyy' }}</td>
+              <td>
+                <button class="btn-edit" (click)="editBangluong(bangluong)">
+                  <i class="fas fa-edit"></i> Sửa
+                </button>
+                <button class="btn-delete" (click)="deleteBangluong(bangluong.id)">
+                  <i class="fas fa-trash"></i> Xóa
+                </button>
+              </td>
+            </tr>
+          </tbody>
+           <!-- Nút bấm để hiển thị biểu đồ -->
+ <div class="chart-toggle">
+  <button class="btn-show-chart" (click)="toggleChart()">Xem Biểu đồ</button>
+</div>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal hiển thị biểu đồ -->
+<div *ngIf="showChart" class="chart-modal">
+  <div class="chart-modal-content">
+    <button class="btn-close-chart" (click)="toggleChart()">X</button>
+    <apx-chart
+      [series]="chartOptions.series! "
+      [chart]="chartOptions.chart! "
+      [xaxis]="chartOptions.xaxis! "
+      [title]="chartOptions.title! "
+      [yaxis]="chartOptions.yaxis!">
+    </apx-chart>
+  </div>

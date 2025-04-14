@@ -1,0 +1,53 @@
+<app-menu></app-menu>
+<app-sidemenu></app-sidemenu>
+
+<div class="container mt-4" @slideInFromTop>
+    <h1 class="text-center text-primary">Cài đặt Axios/Sass & NgRX</h1>
+    <table class="table table-bordered mt-4">
+      <thead>
+        <tr>
+          <th scope="col">Công việc</th>
+          <th scope="col">Bước thực hiện</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Cài đặt Axios</strong></td>
+          <td>
+            1. Đảm bảo bạn sử dụng Angular CLI phiên bản 16.<br>
+            2. Chạy lệnh <code>npm install axios&commat;16</code> để cài đặt Axios.<br>
+            3. Sử dụng Axios trong Effects để gửi yêu cầu HTTP.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Cài đặt Sass</strong></td>
+          <td>
+            1. Đảm bảo bạn sử dụng Angular CLI phiên bản 16.<br>
+            2. Chạy lệnh <code>npm install sass --save-dev</code> Để cài đặt Sass.<br>
+            3. Đổi cấu hình style của angular.json thành 
+            "styles": [
+            "src/styles.scss"
+            ]
+            4. Đổi phần mở rộng của các tệp CSS thành <code>.scss</code> (ví dụ: <code>app.component.scss</code>).<br>
+            5. Angular sẽ tự động biên dịch Sass thành CSS khi chạy ứng dụng.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Cài đặt NgRx</strong></td>
+          <td>
+            1. Đảm bảo bạn sử dụng Angular CLI phiên bản 16.<br>
+            2. Chạy lệnh <code>npm install &commat;ngrx/store&commat;16 &commat;ngrx/effects&commat;16 &commat;ngrx/store-devtools&commat;16</code> để cài đặt NgRx.<br>
+            3. Tạo reducer và actions trong thư mục <code>store</code> để quản lý trạng thái.<br>
+            4. Cấu hình <code>StoreModule</code> trong <code>AppModule</code> để kết nối reducer vào ứng dụng.<br>
+            5. Sử dụng <code>Store</code> trong các component để truy xuất và thay đổi trạng thái.<br>
+            6. Cài đặt Redux DevTools Extension trong trình duyệt (Chrome).<br>
+            7. Cấu hình Redux DevTools trong App.module.ts 
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

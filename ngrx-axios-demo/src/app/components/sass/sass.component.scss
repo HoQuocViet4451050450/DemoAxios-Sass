@@ -1,0 +1,81 @@
+// Định nghĩa các biến
+$primary-color: blue;
+$secondary-color: green;
+$font-stack: 'Arial', sans-serif;
+$border-radius: 5px;
+
+// Mixins cho việc tạo hiệu ứng cho các button
+@mixin button-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  padding: 10px 20px;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken($bg-color, 10%);
+  }
+}
+
+// Kế thừa từ một lớp khác
+%base-button {
+  padding: 10px 20px;
+  border-radius: $border-radius;
+  font-family: $font-stack;
+  border: 1px solid gray;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+// Sử dụng kế thừa và mixin trong các lớp cụ thể
+.btn-primary {
+  @extend %base-button;
+  @include button-style($primary-color, white);
+}
+
+.btn-secondary {
+  @extend %base-button;
+  @include button-style($secondary-color, white);
+}
+
+.card {
+  background-color: white;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px 0;
+
+  h2 {
+    font-size: 24px;
+    color: $primary-color;
+  }
+
+  p {
+    font-size: 16px;
+    color: black;
+  }
+}
+.code-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; // Khoảng cách giữa các phần tử
+}
+
+.CSS, .SCSS {
+  width: 48%;  // Điều chỉnh chiều rộng theo nhu cầu
+}
+
+h4 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+pre {
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+}

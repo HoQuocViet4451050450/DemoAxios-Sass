@@ -1,0 +1,63 @@
+<app-menu></app-menu>
+<app-sidemenu></app-sidemenu>
+
+<div class="container-dept" @slideInFromLeft>
+  <h1 class="title">Quản lý phòng ban</h1>
+
+  <div class="grid-layout">
+    <!-- Form thêm phòng ban -->
+    <div class="form-wrapper">
+      <div class="card-dept">
+        <h4 class="section-title">Thêm Phòng ban</h4>
+        <form #phongbanForm="ngForm" (ngSubmit)="onSubmit(phongbanForm.value)">
+          <input type="hidden" name="id" [(ngModel)]="selectedPhongban.id" />
+
+          <div class="form-group">
+            <label>Tên phòng</label>
+            <input type="text" name="tenphong" [(ngModel)]="selectedPhongban.tenphong" required />
+          </div>
+
+          <div class="form-group">
+            <label>Mô tả</label>
+            <textarea name="mota" [(ngModel)]="selectedPhongban.mota" rows="3" required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-save"></i> Thêm mới
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Danh sách phòng ban -->
+    <div class="list-wrapper">
+      <div class="card-dept">
+        <div class="list-header">
+          <h4>Danh sách Phòng ban</h4>
+          <button class="btn-reload" (click)="loadPhongbanList()">
+            <i class="fas fa-sync"></i> Tải lại
+          </button>
+        </div>
+
+        <div *ngIf="error$ | async as error" class="alert-error">
+          <strong>Lỗi:</strong> {{ error }}
+        </div>
+
+        <ul class="dept-list">
+          <li *ngFor="let pb of phongbans$ | async" class="dept-item">
+            <span>
+              <strong>{{ pb.tenphong }}</strong> - {{ pb.mota }}
+            </span>
+            <button class="btn-delete" (click)="deletePhongban(pb.id)">
+              <i class="fas fa-trash"></i> Xóa
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="submittedDataMessage" class="alert-message">
+  {{ submittedDataMessage }}
+</div>

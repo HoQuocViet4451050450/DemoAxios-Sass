@@ -1,0 +1,24 @@
+<app-menu></app-menu>
+<app-sidemenu></app-sidemenu>
+
+<!-- Buttons -->
+<button class="btn-primary" @slideInFromLeft>Primary Button</button>
+<button class="btn-secondary" @slideInFromLeft>Secondary Button</button>
+
+<!-- Card -->
+<div class="card" @slideInFromLeft>
+  <h2>Card Title</h2>
+  <p>This is some content inside the card.</p>
+</div>
+
+<div class="code-container" @slideInFromLeft>
+  <div class="CSS">
+    <h4 style="color: red;">CSS Code:</h4>
+    <pre><code class="css" [innerHTML]="cssCode"></code></pre>
+  </div>
+
+  <div class="SCSS" @slideInFromLeft>
+    <h4 style="color: green;">SCSS Code:</h4>
+    <pre><code class="css" [innerHTML]="scssCode"></code></pre>
+  </div>
+</div>
