@@ -73,9 +73,7 @@ Dự án **Demo Axios/Sass & Ngrx Angular 16** là một ứng dụng quản lý
 | Axios | Giao tiếp API hiệu quả |
 | Ng-apexcharts | Vẽ biểu đồ |
 | Animations | Tạo hiệu ứng chuyển động |
-|-----------------|-------|
 | Node.js + Express.js | Xây dựng API backend |
-|-----------------|-------|
 | MySQL + phpMyAdmin | Lưu trữ dữ liệu |
 
 ---
